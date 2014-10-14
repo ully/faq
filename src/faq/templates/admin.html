@@ -1,0 +1,77 @@
+{%extends "base.html"%}
+{% block body %}
+<div class="page-header">
+   <h1>FAQ ADMIN</h1>
+</div>
+
+<ul class="nav nav-tabs" id="myTab">
+  <li class="active"><a href="#home">searchtest</a></li>
+  <li><a href="#index">IndexQuestiones</a></li>
+</ul>
+ 
+<div class="tab-content">
+  <div class="tab-pane active" id="home">
+	  <input type="text" id="search"/>
+	  <div id="demo">up</div>
+</div>
+  <div class="tab-pane" id="index">
+  <form>
+  <fieldset>
+    <legend>Add QuestionIndexes</legend>
+    <label>Question Ids</label>
+    <input type="text" id="qids"name ="qids" placeholder="muti seprated with ','"/>
+    <label class="checkbox">
+      <input name="isall"id="isall" type="checkbox" > ReIndexAll</input>
+    </label>
+    <input type="button" id="submitbtn" name="submitbtn" class="btn" value="submit"/><span id="info"></span>
+  </fieldset>
+</form>
+
+<hr>
+    djangoamdin:  <a class="novisit" target="_blank" href="/admin">Admin</a>
+
+</div>
+</div>
+<script>
+$(function(){
+	$('#myTab a').click(function (e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+		})
+	$("#submitbtn").click(function() {
+		if($("#qids").val()=="" && $("input:checked[id='isall']").length == 0){
+			alert("questionid or checkbox,any one should be selected!");
+			return;
+		}
+		$("#info").html("creating...");
+		$.ajax({
+			  url: "/createindex",
+			  type: "GET",
+			  data: "qids="+$("#qids").val()+"&isall="+($("input:checked[id='isall']").length>0),
+			  datatype:"json",
+			  success: function(data){
+			    	$("#info").html(data);
+			  },
+			    error:function(error){
+			    	$("#info").html(error);
+			    }
+			  
+			});
+	})
+	
+	$("#search").autoSuggest("/jsonpsearch", {feedbackMsg:"test",jsonp:true,ispulltopq:true,minChars: 2, matchCase: false,selectedItemProp: "question", searchObjProps: "answer",extraParams:"&way=ICAFE&source=1,2,3,4,5,6,7&username=admin"});
+	
+	new faq.widgets.Banner({context:"http://localhost:8000",draggable:false,hidden:true,target:$("body"),initTop:50,optsargs:{jsonp:true,ispulltopq:true,minChars: 2, retrieveLimit:5,matchCase: false,selectedItemProp: "question", searchObjProps: "answer",extraParams:"&way=ICAFE&source=1,2,3,4&username=<sec:authentication property='principal.name'/>&useremail=<sec:authentication htmlEscape='false' property='principal.email'/>"}});
+	
+// 	 $('#demo').like({
+//          initInterface: '/assess/init?username=lihan01&itemId=1',
+//          likeInterface: '/assess/like?username=lihan01&itemId=1',
+//          hateInterface: '/assess/hate?username=lihan01&itemId=1',
+//          position:{'top':'209',
+//          	 'left':'84'
+//          	 }
+//      });
+	 
+})
+</script>
+{% endblock %}

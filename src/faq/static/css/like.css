@@ -1,0 +1,64 @@
+.like-wrapper{
+  overflow: hidden;
+}
+.like-wrapper div.like,
+.like-wrapper div.hate{
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+.like-wrapper div.like{
+  margin-right: 10px;
+}
+.like-wrapper a.hasLike,
+.like-wrapper a.hasHate,
+.like-wrapper a.stop{
+  cursor: default;
+}
+.like-wrapper a.like,
+.like-wrapper a.hate{
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  height: 22px;
+  width: 20px;
+  text-indent: -9999px;
+  overflow: hidden;
+  margin-right: 2px;
+}
+.like-wrapper a.like,
+.like-wrapper a.hate{
+  background-image: url(images/like.png);
+  background-repeat: no-repeat;
+  float: left;
+}
+.like-wrapper a.like{
+  /*background: url(images/good.png) no-repeat 0 0 scroll transparent;*/
+  background-position: 0 0;
+  cursor: pointer;
+}
+.like-wrapper a.like:hover,
+.like-wrapper a.hasLike{
+  /*background: url(images/good-hover.png) no-repeat 0 0 scroll transparent;*/
+  background-position: 0 -45px;
+  cursor: default;
+}
+.like-wrapper a.hate{
+  /*background: url(images/bad.png) no-repeat 0 3px scroll transparent;*/
+  background-position: 0 -19px;
+  cursor: pointer;
+}
+.like-wrapper a.hate:hover,
+.like-wrapper a.hasHate{
+  /*background: url(images/bad-hover.png) no-repeat 0 3px scroll transparent;*/
+  background-position: 0 -64px;
+  cursor: default;
+}
+.like-wrapper span.like-num,
+.like-wrapper span.hate-num{
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  height: 22px;
+  line-height: 24px;
+}
